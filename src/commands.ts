@@ -1,9 +1,10 @@
-import { REST, Routes } from "discord.js";
+import Discord, { Events, REST, Routes } from "discord.js";
 import {token,clientId, guildId} from "./config/config.json"
 import path from "path";
 import fs from "fs";
 
-export const createCommands = () => {
+export const createCommands = async (client: any, rest: any) => {
+    client.commands = new Discord.Collection();
     const commands = [];
     // Grab all the command folders from the commands directory you created earlier
     const foldersPath = path.join(__dirname, 'commands');
@@ -25,8 +26,7 @@ export const createCommands = () => {
         }
     }
 
-    // Construct and prepare an instance of the REST module
-    const rest = new REST().setToken(token);
+    
 
     // and deploy your commands!
     (async () => {
@@ -38,6 +38,7 @@ export const createCommands = () => {
                 Routes.applicationGuildCommands(clientId, guildId),
                 { body: commands },
             );
+            console.log(data)
 
             console.log(`Successfully reloaded ${data.length} application (/) commands.`);
         } catch (error) {
@@ -45,5 +46,5 @@ export const createCommands = () => {
             console.error(error);
         }
     })();
-
+    
 }
