@@ -20,3 +20,7 @@ dist/
 
 # Windows
 Thumbs.db
+
+
+config.json
+.env
