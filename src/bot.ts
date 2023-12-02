@@ -1,19 +1,18 @@
-//@ts-nocheck
-import { Client, Collection, GatewayIntentBits,MessageCollector, Events } from "discord.js"
+import { Client, GatewayIntentBits } from "discord.js"
 import obj from "./config/config.json"
-import path from "path";
-import fs from "fs"
+import { createCommands } from "./commands";
 
 
-const {token} = obj
-
-export const client = new Client({intents: [GatewayIntentBits.Guilds] });
+const {token, clientId, guildId} = obj
 
 
-
-client.once('ready', () => {
-    console.log(`Bot conectado como ${client.user!.tag}`);
-    
-});
-
-client.login(token);
+try {
+    const client = new Client({intents: [GatewayIntentBits.Guilds] });
+    createCommands()
+    client.login(token);
+    client.once('ready', () => {
+        console.log(`Bot conectado como ${client.user!.tag}`)
+    });
+} catch (err){
+    console.error(err)
+}
