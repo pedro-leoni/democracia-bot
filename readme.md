@@ -13,3 +13,6 @@ module.exports = {
 `
 
 docs: https://discordjs.guide/creating-your-bot/command-handling.html#executing-commands
+
+
+sv pruebas: https://discord.gg/QW8fHMumnZ
